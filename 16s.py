@@ -26,7 +26,7 @@ parser.add_argument("-c", "--Cutoff", help = "Minimum percent to use as cutoff, 
 parser.add_argument('--pe', action='store_true', help = 'Use this flag to merge reads (e.g. when using illumina pe reads)')
 args = parser.parse_args()
 
-curDir = curDir = os.path.dirname(os.path.realpath(__file__))
+curDir = os.path.dirname(os.path.realpath(__file__))
 
 dbPath = os.path.join(curDir, '/kraken2/silva/')
 pearBin = os.path.join(curDir, '/pear-0.9.11-linux-x86_64/bin/pear')
@@ -64,7 +64,7 @@ if args.pe:
 if args.pe:
     fils = [fil for fil in os.listidr(args.inpath) if fil.endswith('.assembled.fastq')]
     
-    for fil in fils:
+    for fil in tqdm(fils):
         releaseKraken(fil, mergedPath, resultsPath)
 else:
     fils = sorted([fil for fil in os.listdir(args.inpath) 
@@ -72,7 +72,7 @@ else:
                    or fil.endswith('.fastq.gz') 
                    or fil.endswith('.fq') 
                    or fil.endswith('.fastq')])
-    for fil in fils:
+    for fil in tqdm(fils):
         releaseKraken(fil, mergedPath, resultsPath)
 
 results = []
