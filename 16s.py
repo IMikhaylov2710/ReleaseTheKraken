@@ -4,7 +4,7 @@ from datetime import datetime
 from tqdm import tqdm
 import pandas as pd
 
-parser = argparse.ArgumentParser(description = 'Script for ONCO analysis', epilog = 'First Genetics All rights reserved 2022')
+parser = argparse.ArgumentParser(description = 'Script for 16s analysis')
 parser.add_argument("-i", "--InPath", help = "Path to input files, directory is used. This directory could contain all kinds of stuff, but make sure that it has fastq or fastq.gz files if stage is fq or bam files if stage is bam. Also make sure that all samples have forward and reverse reads if mode is set to pe, otherwise ERROR is inevidable",
                    nargs='?',
                    type = str)
