@@ -34,8 +34,8 @@ pearBin = os.path.join(curDir, '/pear-0.9.11-linux-x86_64/bin/pear')
 def getNow():
     return str(datetime.now()).replace(' ', '_').replace(':', '').split('.')[0]
 
-'''def merge(f, inpath, outpath, overlap):
-    os.system(f'{pearBin} -v {overlap} -f {inpath}{f[0]} -r {inpath}{f[1]} -o {outpath}{f[0].split("_S")[0]}.merged.fastq')'''
+def merge(f, inpath, outpath, overlap):
+    os.system(f'{pearBin} -v {overlap} -f {inpath}{f[0]} -r {inpath}{f[1]} -o {outpath}{f[0].split("_S")[0]}.merged.fastq')
 
 def releaseKraken(fil, inpath, outpath):
     os.system(f'kraken2 --db {dbPath} --report {outpath}{fil.split(".")[0]}.kreport --output {outpath}{fil.split(".")[0]} {inpath}{fil}')
