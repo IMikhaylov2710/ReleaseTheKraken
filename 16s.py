@@ -35,10 +35,10 @@ def getNow():
     return str(datetime.now()).replace(' ', '_').replace(':', '').split('.')[0]
 
 def merge(f, inpath, outpath, overlap):
-    return os.system(f'{pearBin} -v {overlap} -f {inpath}/{f[0]} -r {inpath}/{f[1]} -o {outpath}/{f[0].split("_S")[0]}.merged.fastq')
+    os.system(f'{pearBin} -v {overlap} -f {inpath}/{f[0]} -r {inpath}/{f[1]} -o {outpath}/{f[0].split("_S")[0]}.merged.fastq')
 
 def releaseKraken(fil, inpath, outpath):
-    return os.system(f'kraken2 --db {dbPath} --report {outpath}{fil.split(".")[0]}.kreport --output {outpath}{fil.split(".")[0]} {inpath}{fil}')
+    os.system(f'kraken2 --db {dbPath} --report {outpath}{fil.split(".")[0]}.kreport --output {outpath}{fil.split(".")[0]} {inpath}{fil}')
 
 c = getNow()
 root = args.OutPath+c
