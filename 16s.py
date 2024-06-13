@@ -36,7 +36,7 @@ def getNow():
     return str(datetime.now()).replace(' ', '_').replace(':', '').split('.')[0]
 
 def merge(f, inpath, outpath, overlap):
-    os.system(f'{pearBin} -v {overlap} -f {inpath}{f[0]} -r {inpath}{f[1]} -o {outpath}{f[0].split("_S")[0]}.merged.fastq')
+    os.system(f'{pearBin} -v {overlap} -f {inpath}{f[0]} -r {inpath}{f[1]} -o {outpath}{f[0].split("_S")[0]}')
 
 def releaseKraken(fil, inpath, outpath):
     print(f'kraken2 --db {dbPath} --report {outpath}{fil.split(".")[0]}.kreport --output {outpath}{fil.split(".")[0]} {inpath}{fil}')
@@ -52,7 +52,6 @@ if not os.path.exists(mergedPath):
 resultsPath = root + '/results'
 if not os.path.exists(resultsPath):
     os.system(f'mkdir {resultsPath}')
-print(resultsPath)
 
 if args.pe:
     fils = sorted([fil for fil in os.listdir(args.InPath) 
@@ -62,10 +61,10 @@ if args.pe:
                    or fil.endswith('.fastq')])
     filsDoubled = [(fils[e], fils[e+1]) for e, fil in enumerate(fils) if e%2 == 0]
     for fil in tqdm(filsDoubled):
-        merge(fil, args.InPath, mergedPath, args.overlap)
+        merge(fil, args.InPath, mergedPath, args.Overlap)
 
 if args.pe:
-    fils = [fil for fil in os.listidr(args.InPath) if fil.endswith('.assembled.fastq')]
+    fils = [fil for fil in os.listdir(args.InPath) if fil.endswith('.assembled.fastq')]
     
     for fil in tqdm(fils):
         releaseKraken(fil, mergedPath, resultsPath)
