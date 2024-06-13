@@ -2,6 +2,7 @@ import argparse
 import os
 from datetime import datetime
 from tqdm import tqdm
+import openpyxl
 import pandas as pd
 
 parser = argparse.ArgumentParser(description = 'Script for 16s analysis')
@@ -73,12 +74,12 @@ else:
                    or fil.endswith('.fq') 
                    or fil.endswith('.fastq')])
     for fil in tqdm(fils):
-        releaseKraken(fil, mergedPath, resultsPath)
+        releaseKraken(fil, args.InPath, resultsPath)
 
 results = []
 stat = []
 general = {}
-fils = [fil for fil in os.listdir(results) if fil.endswith('report')]
+fils = [fil for fil in os.listdir(resultsPath) if fil.endswith('report')]
 for fil in sorted(fils):
     with open(results+fil, 'r') as handle:
         sub = {}
