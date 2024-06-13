@@ -29,8 +29,8 @@ args = parser.parse_args()
 
 curDir = os.path.dirname(os.path.realpath(__file__))
 
-dbPath = os.path.join(curDir, '/kraken2/silva/')
-pearBin = os.path.join(curDir, '/pear-0.9.11-linux-x86_64/bin/pear')
+dbPath = curDir + '/kraken2/silva/'
+pearBin = curDir + '/pear-0.9.11-linux-x86_64/bin/pear'
 
 def getNow():
     return str(datetime.now()).replace(' ', '_').replace(':', '').split('.')[0]
@@ -95,12 +95,12 @@ for fil in sorted(fils):
         general[fil.split('.')[0]] = sub
 
 results_df = pd.DataFrame(results, columns = ['sample', 
-                                            'fraction', 
-                                            'reads for this TXID',
-                                            'reads for this TXID with no further classification', 
-                                            'tax depth', 
-                                            'TXID',
-                                            'name'])
+                                              'fraction', 
+                                              'reads for this TXID',
+                                              'reads for this TXID with no further classification', 
+                                              'tax depth', 
+                                              'TXID',
+                                              'name'])
 
 results_df.to_excel(os.path.join(root, 'results.xlsx'))
 
