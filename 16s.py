@@ -39,18 +39,20 @@ def merge(f, inpath, outpath, overlap):
     os.system(f'{pearBin} -v {overlap} -f {inpath}{f[0]} -r {inpath}{f[1]} -o {outpath}{f[0].split("_S")[0]}.merged.fastq')
 
 def releaseKraken(fil, inpath, outpath):
-    os.system(f'kraken2 --db {dbPath} --report {outpath}{fil.split(".")[0]}.kreport --output {outpath}{fil.split(".")[0]} {inpath}{fil}')
+    print(f'kraken2 --db {dbPath} --report {outpath}{fil.split(".")[0]}.kreport --output {outpath}{fil.split(".")[0]} {inpath}{fil}')
+    os.system(f'kraken2 --db {dbPath} --report {outpath}/{fil.split(".")[0]}.kreport --output {outpath}/{fil.split(".")[0]} {inpath}{fil}')
 
 c = getNow()
 root = args.OutPath+c
 if not os.path.exists(root):
     os.system(f'mkdir {root}')
-mergedPath = os.path.join(root, 'merged')
+mergedPath = root + '/merged'
 if not os.path.exists(mergedPath):
     os.system(f'mkdir {mergedPath}')
-resultsPath = os.path.join(root, 'results')
+resultsPath = root + '/results'
 if not os.path.exists(resultsPath):
     os.system(f'mkdir {resultsPath}')
+print(resultsPath)
 
 if args.pe:
     fils = sorted([fil for fil in os.listdir(args.InPath) 
@@ -80,8 +82,9 @@ results = []
 stat = []
 general = {}
 fils = [fil for fil in os.listdir(resultsPath) if fil.endswith('report')]
+print(fils)
 for fil in sorted(fils):
-    with open(results+fil, 'r') as handle:
+    with open(resultsPath+'/'+fil, 'r') as handle:
         sub = {}
         name = fil.split('.')[0]
         results.append([name, '', '', '', '', '', ''])
@@ -103,6 +106,3 @@ results_df = pd.DataFrame(results, columns = ['sample',
                                               'name'])
 
 results_df.to_excel(os.path.join(root, 'results.xlsx'))
-
-
-
