@@ -52,22 +52,22 @@ if not os.path.exists(resultsPath):
     os.system(f'mkdir {resultsPath}')
 
 if args.pe:
-    fils = sorted([fil for fil in os.listdir(args.inpath) 
+    fils = sorted([fil for fil in os.listdir(args.InPath) 
                    if fil.endswith('.fq.gz') 
                    or fil.endswith('.fastq.gz') 
                    or fil.endswith('.fq') 
                    or fil.endswith('.fastq')])
     filsDoubled = [(fils[e], fils[e+1]) for e, fil in enumerate(fils) if e%2 == 0]
     for fil in tqdm(filsDoubled):
-        merge(fil, args.inpath, mergedPath, args.overlap)
+        merge(fil, args.InPath, mergedPath, args.overlap)
 
 if args.pe:
-    fils = [fil for fil in os.listidr(args.inpath) if fil.endswith('.assembled.fastq')]
+    fils = [fil for fil in os.listidr(args.InPath) if fil.endswith('.assembled.fastq')]
     
     for fil in tqdm(fils):
         releaseKraken(fil, mergedPath, resultsPath)
 else:
-    fils = sorted([fil for fil in os.listdir(args.inpath) 
+    fils = sorted([fil for fil in os.listdir(args.InPath) 
                    if fil.endswith('.fq.gz') 
                    or fil.endswith('.fastq.gz') 
                    or fil.endswith('.fq') 
